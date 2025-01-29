@@ -3,41 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蛇年新春祝福</title>
+    <title>蛇年祝福滚动诗词</title>
     <style>
         body {
-            background-color: #000;
-            color: #FFD700;
-            font-size: 28px;
-            font-weight: bold;
+            background-color: #ffefdb;
             text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #d2691e;
             font-family: "KaiTi", serif;
-            padding-top: 20%;
+            padding-top: 50px;
         }
-        .line {
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+        .poem-container {
+            display: inline-block;
+            border: 5px solid #d2691e;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fffaf0;
+            box-shadow: 0 0 15px rgba(210, 105, 30, 0.8);
+            min-height: 180px;
+        }
+        .decorations {
+            font-size: 30px;
+        }
+        .poem {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.8;
+            display: inline-block;
+        }
+        .flash {
+            animation: flash 1s infinite alternate;
+        }
+        @keyframes flash {
+            0% { color: #d2691e; }
+            100% { color: #ff4500; }
         }
     </style>
 </head>
 <body>
 
-    <div id="poem">
-        <div class="line">蛇舞金春福运来，</div>
-        <div class="line">龙腾盛世展宏才。</div>
-        <div class="line">财源滚滚添佳运，</div>
-        <div class="line">体健身安笑口开。</div>
-    </div>
+<div class="decorations">🎊🐍✨ 新春快乐 ✨🐍🎊</div>
+<div class="poem-container">
+    <div class="poem" id="poem"></div>
+</div>
+<div class="decorations">🎉🍾 福寿安康 🍾🎉</div>
 
-    <script>
-        // 逐行显示诗句
-        let lines = document.querySelectorAll(".line");
-        lines.forEach((line, index) => {
-            setTimeout(() => {
-                line.style.opacity = 1;
-            }, index * 2000); // 每行间隔2秒
-        });
-    </script>
+<script>
+    const poemText = "银蛇献瑞兆丰年，🌟\n福满人间喜气连。🎉\n大展鸿图鹏振翼，🐍\n康安顺遂乐无边。💖";
+    let index = 0;
+    let displayText = "";
+
+    function scrollPoem() {
+        if (index < poemText.length) {
+            let char = poemText[index];
+            displayText += char;
+            document.getElementById("poem").innerText = displayText;
+            index++;
+            setTimeout(scrollPoem, char === '\n' ? 500 : 200);
+        } else {
+            document.getElementById("poem").classList.add("flash");
+        }
+    }
+
+    scrollPoem();
+</script>
 
 </body>
-</html
+</html>
