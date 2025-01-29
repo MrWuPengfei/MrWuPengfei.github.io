@@ -1,49 +1,43 @@
-'''java
-import org.jsoup.Jsoup;
-import java.util.ArrayList; 
-import java.util.List; 
-import java.util.Timer;
-import java.util.TimerTask;
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蛇年新春祝福</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            font-family: "KaiTi", serif;
+            padding-top: 20%;
+        }
+        .line {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
 
-public class DynamicText {
-    public static void main(String[] args) throws Exception {
-        //1.创建展示内容列表
-        List<String> texts = new ArrayList<>(); 
-        texts.add("蛇腾新春乐潋滟");
-        texts.add(":大吉张鸿图，"); 
-        texts.add(":身旁康健安康存.");
-          
-        //2，定义HTML模板(会自动加上空格和符号) 
-        String htmlTemplate ="""
-            <div style="color: white; font-family: Arial, sans-serif;">
-                <pre>
-                    %s
-                </pre>
-            </div>
-         """;
-          
-         //3.创建计时器任务
-         Timer timer = new Timer();
-         TimerTask task = new TimerTask(){
-             @Override
-             public void run() {
-                 // 更新内容并显示 
-                 int i = 0;
-                 while (i < texts.size()) {
-                     String currentText = String.format(htmlTemplate,texts.get(i));
-                     Jsoup.parseBodyElements(currentText).get(0).prepend(); 
-                     i++; 
-                     try {
-                            Thread.sleep(500);// 每500毫秒更新一次
-                     } 
-                   catch (InterruptedException e){
-                   e.printStackTrace();
-                   }
-               }
-          }
-   };
-   //4.启动定时器任务
-   timer.schedule(task，0，50);
- }
-}
-'''
+    <div id="poem">
+        <div class="line">蛇舞金春福运来，</div>
+        <div class="line">龙腾盛世展宏才。</div>
+        <div class="line">财源滚滚添佳运，</div>
+        <div class="line">体健身安笑口开。</div>
+    </div>
+
+    <script>
+        // 逐行显示诗句
+        let lines = document.querySelectorAll(".line");
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.style.opacity = 1;
+            }, index * 2000); // 每行间隔2秒
+        });
+    </script>
+
+</body>
+</html
