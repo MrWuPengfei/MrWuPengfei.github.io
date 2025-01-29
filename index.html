@@ -1,0 +1,47 @@
+import org.jsoup.Jsoup;
+import java.util.ArrayList; 
+import java.util.List; 
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class DynamicText {
+    public static void main(String[] args) throws Exception {
+        //1.创建展示内容列表
+        List<String> texts = new ArrayList<>(); 
+        texts.add("蛇腾新春乐潋滟");
+        texts.add(":大吉张鸿图，"); 
+        texts.add(":身旁康健安康存.");
+          
+        //2，定义HTML模板(会自动加上空格和符号) 
+        String htmlTemplate ="""
+            <div style="color: white; font-family: Arial, sans-serif;">
+                <pre>
+                    %s
+                </pre>
+            </div>
+         """;
+          
+         //3.创建计时器任务
+         Timer timer = new Timer();
+         TimerTask task = new TimerTask(){
+             @Override
+             public void run() {
+                 // 更新内容并显示 
+                 int i = 0;
+                 while (i < texts.size()) {
+                     String currentText = String.format(htmlTemplate,texts.get(i));
+                     Jsoup.parseBodyElements(currentText).get(0).prepend(); 
+                     i++; 
+                     try {
+                            Thread.sleep(500);// 每500毫秒更新一次
+                     } 
+                   catch (InterruptedException e){
+                   e.printStackTrace();
+                   }
+               }
+          }
+   };
+   //4.启动定时器任务
+   timer.schedule(task，0，50);
+ }
+};
